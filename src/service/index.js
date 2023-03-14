@@ -50,17 +50,6 @@ module.exports = class Service {
     ]);
   }
 
-  // get all cards of a list
-  async getCardsByListId(user_id, list_id) {
-    return this.repository.getBy("cards", user_id, [
-      {
-        field: "list_id",
-        operator: "==",
-        value: list_id,
-      },
-    ]);
-  }
-
   // create list
   async createList(user_id, data) {
     return this.repository.create("lists", user_id, data);
@@ -74,30 +63,5 @@ module.exports = class Service {
   // delete list
   async deleteList(user_id, id) {
     await this.repository.delete("lists", user_id, id);
-  }
-
-  // get cards
-  async getCards(user_id) {
-    return this.repository.getAll("cards", user_id);
-  }
-
-  // get card by id
-  async getCard(user_id, id) {
-    return this.repository.get("cards", user_id, id);
-  }
-
-  // create card
-  async createCard(user_id, data) {
-    return this.repository.create("cards", user_id, data);
-  }
-
-  // update card
-  async updateCard(user_id, id, data) {
-    await this.repository.update("cards", user_id, id, data);
-  }
-
-  // delete card
-  async deleteCard(user_id, id) {
-    await this.repository.delete("cards", user_id, id);
   }
 };

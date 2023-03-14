@@ -61,21 +61,6 @@ module.exports = class Controller {
     res.json(lists);
   }
 
-  // get all cards of a list
-  async getCardsByListId(req, res) {
-    const cards = await this.service.getCardsByListId(
-      res.locals.user.uid,
-      req.params.id
-    );
-    res.json(cards);
-  }
-
-  // get all cards of a user
-  async getCards(req, res) {
-    const cards = await this.service.getCards(res.locals.user.uid);
-    res.json(cards);
-  }
-
   // create list
   async createList(req, res) {
     const id = await this.service.createList(res.locals.user.uid, req.body);
@@ -92,34 +77,5 @@ module.exports = class Controller {
   async deleteList(req, res) {
     await this.service.deleteList(res.locals.user.uid, req.params.id);
     res.json({ id: req.params.id });
-  }
-
-  // create card
-  async createCard(req, res) {
-    const id = await this.service.createCard(res.locals.user.uid, req.body);
-    res.json({ id });
-  }
-
-  // get card by id
-  async getCard(req, res) {
-    const card = await this.service.getCard(res.locals.user.uid, req.params.id);
-    res.json(card);
-  }
-
-  // update card
-  async updateCard(req, res) {
-    await this.service.updateCard(res.locals.user.uid, req.params.id, req.body);
-    res.json({ id: req.params.id });
-  }
-
-  // delete card
-  async deleteCard(req, res) {
-    await this.service.deleteCard(res.locals.user.uid, req.params.id);
-    res.json({ id: req.params.id });
-  }
-
-  // get user
-  async getUser(req, res) {
-    res.json(res.locals.user);
   }
 };
