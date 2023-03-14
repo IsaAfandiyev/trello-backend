@@ -2,6 +2,7 @@ const admin = require("firebase-admin");
 
 module.exports = class Repository {
   constructor() {}
+
   async get(collection, user_id, id) {
     const doc = await admin.firestore().collection(collection).doc(id).get();
     return doc.data();
@@ -15,7 +16,12 @@ module.exports = class Repository {
       .where("user_id", "==", user_id)
       .get();
     const docs = query.docs;
-    return docs.map((doc) => doc.data());
+    return docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
   }
 
   // get by custom filters
