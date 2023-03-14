@@ -18,10 +18,12 @@ const router = initializeRoutes(controller);
 
 const app = express();
 
+app.use(cors({
+  origin: '*'
+}));
 app.use(authenticate);
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cors());
 
 app.use("/", router);
 

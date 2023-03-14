@@ -30,7 +30,7 @@ module.exports = class Repository {
     filters.forEach((filter) => {
       query = query.where(filter.field, filter.operator, filter.value);
     });
-    query = query.get();
+    query = await query.get();
     const docs = query.docs;
     return docs.map((doc) => doc.data());
   }
