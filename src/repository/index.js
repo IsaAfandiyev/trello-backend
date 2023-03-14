@@ -5,7 +5,7 @@ module.exports = class Repository {
 
   async get(collection, user_id, id) {
     const doc = await admin.firestore().collection(collection).doc(id).get();
-    return doc.data();
+    return { id: doc.id, ...doc.data() };
   }
 
   async getAll(collection, user_id) {
@@ -38,7 +38,12 @@ module.exports = class Repository {
     });
     query = await query.get();
     const docs = query.docs;
-    return docs.map((doc) => doc.data());
+    return docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      };
+    });
   }
 
   async create(collection, user_id, data) {
