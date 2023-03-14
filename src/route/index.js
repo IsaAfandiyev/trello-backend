@@ -15,7 +15,6 @@ const initializeRoutes = (controller) => {
   router.get("/lists/:id", controller.getList.bind(controller));
   router.get("/boards/:id/lists", controller.getListsByBoardId.bind(controller));
   router.get("/lists/:id/cards", controller.getCardsByListId.bind(controller));
-  router.get("/boards/:id/cards", controller.getCardsByBoardId.bind(controller));
   router.post("/lists", controller.createList.bind(controller));
   router.put("/lists/:id", controller.updateList.bind(controller));
   router.delete("/lists/:id", controller.deleteList.bind(controller));

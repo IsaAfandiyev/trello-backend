@@ -70,15 +70,6 @@ module.exports = class Controller {
     res.json(cards);
   }
 
-  // get all cards of a board
-  async getCardsByBoardId(req, res) {
-    const cards = await this.service.getCardsByBoardId(
-      res.locals.user.uid,
-      req.params.id
-    );
-    res.json(cards);
-  }
-
   // get all cards of a user
   async getCards(req, res) {
     const cards = await this.service.getCards(res.locals.user.uid);
