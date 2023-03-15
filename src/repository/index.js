@@ -1,16 +1,16 @@
-const admin = require("firebase-admin");
-
 module.exports = class Repository {
-  constructor() {}
+  constructor(firebaseDB) {
+    this.firebaseDB = firebaseDB;
+  }
 
   async get(collection, user_id, id) {
-    const doc = await admin.firestore().collection(collection).doc(id).get();
+    const doc = await this.firebaseDB.firestore().collection(collection).doc(id).get();
     return { id: doc.id, ...doc.data() };
   }
 
   async getAll(collection, user_id) {
     // get all documents where user id is equal to current user id
-    const query = await admin
+    const query = await this.firebaseDB
       .firestore()
       .collection(collection)
       .where("user_id", "==", user_id)
@@ -27,7 +27,7 @@ module.exports = class Repository {
   // get by custom filters
   async getBy(collection, user_id, filters) {
     // get all documents where user id is equal to current user id
-    let query = await admin
+    let query = await this.firebaseDB
       .firestore()
       .collection(collection)
       .where("user_id", "==", user_id);
@@ -48,15 +48,15 @@ module.exports = class Repository {
 
   async create(collection, user_id, data) {
     data.user_id = user_id;
-    const doc = await admin.firestore().collection(collection).add(data);
+    const doc = await this.firebaseDB.firestore().collection(collection).add(data);
     return doc.id;
   }
 
   async update(collection, user_id, id, data) {
-    await admin.firestore().collection(collection).doc(id).update(data);
+    await this.firebaseDB.firestore().collection(collection).doc(id).update(data);
   }
 
   async delete(collection, user_id, id) {
-    await admin.firestore().collection(collection).doc(id).delete();
+    await this.firebaseDB.firestore().collection(collection).doc(id).delete();
   }
 };
